@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <script src="login.js"></script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="box" id="containerbox">
-        <input type="email" id="inputEmail" size="30" required />
-        <button type="submit" id="submitBtn" >Login</button>
+        <form id="emailForm" name="emailform" action="#">
+        <input type="email" id="inputEmail" name="email"  size="30" required />
+        <button type="submit" id="submitBtn"  onclick="checkEmail(document.emailform.email)">Login</button>
+    </form>
     </div>
-
+<script src="login.js"></script>
 </body>
 </html>
