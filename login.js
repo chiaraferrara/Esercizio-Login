@@ -3,10 +3,11 @@ const emails = JSON.parse(localStorage.getItem("emails")) || [];
 const today = Date.now();
 
 const welcomeMessage = () => {
+  document.getElementById("head").innerHTML = `<p class="header-flex"><button id="logoutBtn" class="btn btn-light">Logout</button></p>`;
   const user = getLoggedEmail();
   document.getElementById("containerbox").innerHTML = `
   <h1>Benvenut*</h1><br><p>${user}</p><br>
-  <button id="logoutBtn" class="btn btn-dark">Logout</button>`;
+  `;
   document.getElementById("logoutBtn").addEventListener("click", function () {
     clearCurrentUserEmail();
     loginMessage();
@@ -14,12 +15,16 @@ const welcomeMessage = () => {
 };
 
 const welcomeBackMessage = () => {
+
   const user = getLoggedEmail();
   const currentUser = getUserLogged();
+  document.getElementById("head").innerHTML = ` <p class="header-flex"><button id="logoutBtn" class="btn btn-light">Logout</button> </p> `;
+
   document.getElementById("containerbox").innerHTML = `
-  <p>${currentUser.counter}</p>
+  <p>
+ Counter: ${currentUser.counter} </br> Last seen: ${currentUser.lastlogged}</p>
   <h1>Bentornat*</h1><br><p>${user}</p><br>
-  <button id="logoutBtn" class="btn btn-dark">Logout</button>`;
+  `;
   document.getElementById("logoutBtn").addEventListener("click", function () {
     clearCurrentUserEmail();
     loginMessage();
@@ -27,10 +32,11 @@ const welcomeBackMessage = () => {
 };
 
 const loginMessage = () => {
+  document.getElementById("head").innerHTML = ``
   document.getElementById("containerbox").innerHTML = `
   <form id="emailForm" name="emailform" action="#">
   <input type="email" class="form-control"  id="inputEmail" name="email"  size="30" required />
-  <button class="btn btn-dark" type="submit" id="submitBtn"  onclick="checkEmail(document.emailform.email)">Login</button>
+  <button class="btn btn-light" type="submit" id="submitBtn"  onclick="checkEmail(document.emailform.email)">Login</button>
 </form>`;
   document.getElementById("submitBtn").addEventListener("click", function () {
     onClickBtnLogin();
@@ -38,25 +44,25 @@ const loginMessage = () => {
 };
 
 const onClickBtnLogin = () => {
-  const user = getUserLogged();
-  console.log(user)
-  const prevUsers = JSON.parse(localStorage.getItem("emails"));
-  console.log(prevUsers);
+  // const user = getUserLogged();
+  // const prevUsers = JSON.parse(localStorage.getItem("emails"));
   const email = document.getElementById("inputEmail").value;
   const existingUser = emails.find((u) => u.email === email);
- saveCurrentUserEmail()
 
+  if(email != null){
+  saveCurrentUserEmail();
 
-  if(existingUser){   
+  if (existingUser) {
     updateUser();
     welcomeBackMessage();
-  } else{
-    saveCurrentUserEmail()
+  } else {
+    saveCurrentUserEmail();
     addEmail();
     welcomeMessage();
   }
-  
+
   getLoggedEmail();
+}
 };
 
 const updateUser = () => {
@@ -70,7 +76,9 @@ const updateUser = () => {
         counter: user.counter + 1,
       };
     } else {
-      return { ...user };
+      return {
+        ...user
+      };
     }
   });
   emails.splice(0, emails.length, ...newUsers);
@@ -116,12 +124,12 @@ const getLoggedEmail = () => {
   return currentLoggedEmail;
 };
 
-const getUserLogged = () =>{
+const getUserLogged = () => {
   const emailLogged = getLoggedEmail();
   const prevUsers = JSON.parse(localStorage.getItem("emails")) || [];
   const user = prevUsers.find((user) => user.email === emailLogged);
   return user;
-}
+};
 
 const checkEmail = (input) => {
   var regex =

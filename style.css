@@ -4,3 +4,14 @@
     padding: 10%;
     margin: auto;
 }
+
+.header-flex{    
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+#head{
+    color: rgba(61, 61, 61, 0.411);
+}
