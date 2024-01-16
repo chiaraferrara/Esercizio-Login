@@ -37,6 +37,7 @@ const welcomeBackMessage = () => {
 const loginMessage = () => {
   document.getElementById("head").innerHTML = ``;
   document.getElementById("containerbox").innerHTML = `
+  <h2>Esegui il Login</h2>
   <form id="emailForm" name="emailform" action="#">
   <input type="email" class="form-control"  id="inputEmail" name="email"  size="30" required />
   <button class="btn btn-light" type="submit" id="submitBtn"  onclick="checkEmail(document.emailform.email)">Login</button>
@@ -49,10 +50,13 @@ const loginMessage = () => {
 const onClickBtnLogin = () => {
   // const user = getUserLogged();
   // const prevUsers = JSON.parse(localStorage.getItem("emails"));
+
+  const emailInput = document.getElementById("inputEmail");
+  const isEmailValid = checkEmail(emailInput)
   const email = document.getElementById("inputEmail").value;
   const existingUser = emails.find((u) => u.email === email);
 
-  if (email != null) {
+  if (isEmailValid === true) {
     saveCurrentUserEmail();
 
     if (existingUser) {
@@ -65,6 +69,8 @@ const onClickBtnLogin = () => {
     }
 
     getLoggedEmail();
+  } else{
+    alert(`Please insert a valid e-mail!`)
   }
 };
 
