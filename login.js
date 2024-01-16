@@ -1,6 +1,7 @@
 const email = "";
 const emails = JSON.parse(localStorage.getItem("emails")) || [];
 const today = Date.now();
+const inputEmail = document.getElementById("inputEmail");
 
 const welcomeMessage = () => {
   document.getElementById(
@@ -39,8 +40,8 @@ const loginMessage = () => {
   document.getElementById("containerbox").innerHTML = `
   <h2>Esegui il Login</h2>
   <form id="emailForm" name="emailform" action="#">
-  <input type="email" class="form-control"  id="inputEmail" name="email"  size="30" required />
-  <button class="btn btn-light" type="submit" id="submitBtn"  onclick="checkEmail(document.emailform.email)">Login</button>
+  <input type="email" class="form-control" id="inputEmail" name="email"  size="30" required  oninput="validateEmail()"/>
+        <button class="btn btn-dark" type="submit" id="submitBtn" onclick="checkEmail(document.emailform.email)" disabled>Login</button>
 </form>`;
   document.getElementById("submitBtn").addEventListener("click", function () {
     onClickBtnLogin();
@@ -52,7 +53,7 @@ const onClickBtnLogin = () => {
   // const prevUsers = JSON.parse(localStorage.getItem("emails"));
 
   const emailInput = document.getElementById("inputEmail");
-  const isEmailValid = checkEmail(emailInput)
+  const isEmailValid = checkEmail(emailInput);
   const email = document.getElementById("inputEmail").value;
   const existingUser = emails.find((u) => u.email === email);
 
@@ -69,8 +70,8 @@ const onClickBtnLogin = () => {
     }
 
     getLoggedEmail();
-  } else{
-    alert(`Please insert a valid e-mail!`)
+  } else {
+    alert(`Please insert a valid e-mail!`);
   }
 };
 
@@ -145,6 +146,7 @@ const checkEmail = (input) => {
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   if (input.value.match(regex)) {
     // console.log(`E-mail valida`);
+
     return true;
   } else {
     // console.log(`E-mail invalida`);
@@ -154,6 +156,19 @@ const checkEmail = (input) => {
 
 document.getElementById("emailForm").addEventListener("submit", function () {
   event.preventDefault(); //deprecato? funziona
+});
+
+const validateEmail = () => {
+  const submitBtn = document.getElementById("submitBtn");
+  const inputEmail = document.getElementById("inputEmail");
+  const isEmailValid = checkEmail(inputEmail);
+
+  submitBtn.disabled = !isEmailValid;
+};
+
+
+document.getElementById("inputEmail").addEventListener("input", function () {
+  validateEmail();
 });
 
 window.onload = () => {

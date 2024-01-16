@@ -16,8 +16,8 @@
     <header id ="head" class="navbar navbar-expand-lg bg-body-tertiary"></header>
     <div class="mb-3" id="containerbox" class="card">
         <form id="emailForm" name="emailform" action="#">
-        <input type="email" class="form-control" id="inputEmail" name="email"  size="30" required />
-        <button class="btn btn-dark" type="submit" id="submitBtn"  onclick="checkEmail(document.emailform.email)">Login</button>
+        <input type="email" class="form-control" id="inputEmail" name="email"  size="30" required  oninput="validateEmail()"/>
+        <button class="btn btn-dark" type="submit" id="submitBtn" onclick="checkEmail(document.emailform.email)">Login</button>
     </form>
     </div>
 <script src="login.js"></script>
