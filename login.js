@@ -3,7 +3,9 @@ const emails = JSON.parse(localStorage.getItem("emails")) || [];
 const today = Date.now();
 
 const welcomeMessage = () => {
-  document.getElementById("head").innerHTML = `<p class="header-flex"><button id="logoutBtn" class="btn btn-light">Logout</button></p>`;
+  document.getElementById(
+    "head"
+  ).innerHTML = `<p class="header-flex"><button id="logoutBtn" class="btn btn-light">Logout</button></p>`;
   const user = getLoggedEmail();
   document.getElementById("containerbox").innerHTML = `
   <h1>Benvenut*</h1><br><p>${user}</p><br>
@@ -15,10 +17,11 @@ const welcomeMessage = () => {
 };
 
 const welcomeBackMessage = () => {
-
   const user = getLoggedEmail();
   const currentUser = getUserLogged();
-  document.getElementById("head").innerHTML = ` <p class="header-flex"><button id="logoutBtn" class="btn btn-light">Logout</button> </p> `;
+  document.getElementById(
+    "head"
+  ).innerHTML = ` <p class="header-flex"><button id="logoutBtn" class="btn btn-light">Logout</button> </p> `;
 
   document.getElementById("containerbox").innerHTML = `
   <p>
@@ -32,7 +35,7 @@ const welcomeBackMessage = () => {
 };
 
 const loginMessage = () => {
-  document.getElementById("head").innerHTML = ``
+  document.getElementById("head").innerHTML = ``;
   document.getElementById("containerbox").innerHTML = `
   <form id="emailForm" name="emailform" action="#">
   <input type="email" class="form-control"  id="inputEmail" name="email"  size="30" required />
@@ -49,20 +52,20 @@ const onClickBtnLogin = () => {
   const email = document.getElementById("inputEmail").value;
   const existingUser = emails.find((u) => u.email === email);
 
-  if(email != null){
-  saveCurrentUserEmail();
-
-  if (existingUser) {
-    updateUser();
-    welcomeBackMessage();
-  } else {
+  if (email != null) {
     saveCurrentUserEmail();
-    addEmail();
-    welcomeMessage();
-  }
 
-  getLoggedEmail();
-}
+    if (existingUser) {
+      updateUser();
+      welcomeBackMessage();
+    } else {
+      saveCurrentUserEmail();
+      addEmail();
+      welcomeMessage();
+    }
+
+    getLoggedEmail();
+  }
 };
 
 const updateUser = () => {
@@ -77,7 +80,7 @@ const updateUser = () => {
       };
     } else {
       return {
-        ...user
+        ...user,
       };
     }
   });
@@ -151,7 +154,12 @@ window.onload = () => {
   const email = getLoggedEmail();
   const isLogged = !!email;
   if (isLogged) {
-    welcomeMessage();
+    const user = getUserLogged();
+    if (user && user.counter > 1) {
+      welcomeBackMessage();
+    } else {
+      welcomeMessage();
+    }
   } else {
     loginMessage();
   }
