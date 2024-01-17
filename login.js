@@ -82,7 +82,7 @@ const updateUser = () => {
     if (user.email === emailLogged) {
       return {
         ...user,
-        lastlogged: new Date(),
+        lastlogged: new Date().toLocaleString(),
         counter: user.counter + 1,
       };
     } else {
@@ -104,7 +104,7 @@ const addEmail = () => {
     console.log(email);
     const user = {
       email: email,
-      lastlogged: new Date(),
+      lastlogged: new Date().toLocaleString(),
       counter: 1,
     };
     emails.push(user);
