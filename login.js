@@ -143,7 +143,7 @@ const getUserLogged = () => {
 
 const checkEmail = (input) => {
   var regex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/;
   if (input.value.match(regex)) {
     // console.log(`E-mail valida`);
 
